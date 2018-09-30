@@ -148,8 +148,8 @@ $total = 0;
                         <li class="bold"><a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-insert-invitation"></i> Orders</a>
                             <div class="collapsible-body">
                                 <ul>
-								<li class = "active"><a href="index.php">Pending Orders</a></li>
-                                <li><a href="view-today.php">Delivered Orders</a></li>
+								<li><a href="index.php">All Orders</a></li>
+                                <li class = "active"><a href="view-today.php">Delivered Orders</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -170,7 +170,7 @@ $total = 0;
           <div class="container">
             <div class="row">
               <div class="col s12 m12 l12">
-                <h5 class="breadcrumbs-title">Pending Orders</h5>
+                <h5 class="breadcrumbs-title">Orders Today</h5>
               </div>
             </div>
           </div>
@@ -180,7 +180,7 @@ $total = 0;
 
         <!--start container-->
         <div class="container">
-          <p class="caption">List of pending orders.</p>
+          <p class="caption">List of delivered orders today.</p>
           <div class="divider"></div>
           <!--editableTable-->
             <div id="work-collections" class="seaction">
@@ -190,8 +190,9 @@ $total = 0;
 				}
 				else{
                     $status = '%';
-				}
-				$sql = mysqli_query($con, "SELECT * FROM orders WHERE not deleted");
+                }
+
+				$sql = mysqli_query($con, "SELECT * FROM orders WHERE date >= CURDATE()");
 				echo '<div class="row">
                         <h4 class="header">List</h4>
                         <ul id="issues-collection" class="collection">';
