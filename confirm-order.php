@@ -5,7 +5,7 @@ $continue=0;
 $total = 0;
 if($_SESSION['customer_sid']==session_id())
 {
-		if($_POST['payment_type'] == 'Wallet'){
+		/*if($_POST['payment_type'] == 'Wallet'){
 		$_POST['cc_number'] = str_replace('-', '', $_POST['cc_number']);
 		$_POST['cc_number'] = str_replace(' ', '', $_POST['cc_number']); 
 		$_POST['cvv_number'] = (int)str_replace('-', '', $_POST['cvv_number']);
@@ -19,7 +19,7 @@ if($_SESSION['customer_sid']==session_id())
 				header("location:index.php");
 		}
 		}
-		else
+		else */
 			$continue=1;
 }
 
@@ -194,13 +194,14 @@ if($continue){
 <div class="row">
 <div>
 <ul id="issues-collection" class="collection">
+<!-- insert this after a href on the echo block below
+<p><strong>Address:</strong> '.htmlspecialchars($_POST['address']).'</p>	
+		<p><strong>Payment Type:</strong> '.$_POST['payment_type'].'</p>	-->
 <?php
     echo '<li class="collection-item avatar">
         <i class="mdi-content-content-paste red circle"></i>
         <p><strong>Name:</strong>'.$name.'</p>
-		<p><strong>Contact Number:</strong> '.$contact.'</p>
-		<p><strong>Address:</strong> '.htmlspecialchars($_POST['address']).'</p>	
-		<p><strong>Payment Type:</strong> '.$_POST['payment_type'].'</p>			
+		<p><strong>Contact Number:</strong> '.$contact.'</p>		
         <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>';
 		
 	foreach ($_POST as $key => $value)
@@ -223,7 +224,7 @@ if($continue){
                 <span>'.$value.' Pieces</span>
             </div>
             <div class="col s3">
-                <span>Rs. '.$price.'</span>
+                <span>P '.$price.'.00</span>
             </div>
         </div>
     </li>';
@@ -239,7 +240,7 @@ if($continue){
                 <span>&nbsp;</span>
             </div>
             <div class="col s3">
-                <span><strong>Rs. '.$total.'</strong></span>
+                <span><strong>P '.$total.'.00</strong></span>
             </div>
         </div>
     </li>';

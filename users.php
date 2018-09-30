@@ -113,68 +113,57 @@ include 'includes/connect.php';
       <!-- START LEFT SIDEBAR NAV-->
       <aside id="left-sidebar-nav">
         <ul id="slide-out" class="side-nav fixed leftside-navigation">
-            <li class="user-details cyan darken-2">
+          <li class="user-details cyan darken-2">
             <div class="row">
-                <div class="col col s4 m4 l4">
-                    <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
-                </div>
-				 <div class="col col s8 m8 l8">
-                    <ul id="profile-dropdown" class="dropdown-content">
-                        <li><a href="routers/logout.php"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col col s8 m8 l8">
-                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><?php echo $name;?> <i class="mdi-navigation-arrow-drop-down right"></i></a>
-                    <p class="user-roal"><?php echo $role;?></p>
-                </div>
+              <div class="col col s4 m4 l4">
+                <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+              </div>
+              <div class="col col s8 m8 l8">
+                <ul id="profile-dropdown" class="dropdown-content">
+                  <li><a href="routers/logout.php"><i class="mdi-hardware-keyboard-tab"></i> Logout</a></li>
+                </ul>
+              </div>
+              <div class="col col s8 m8 l8">
+                <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><?php echo $name;?> <i class="mdi-navigation-arrow-drop-down right"></i></a>
+                <p class="user-roal"><?php echo $role;?></p>
+              </div>
             </div>
-            </li>
-            <li class="bold"><a href="index.php" class="waves-effect waves-cyan"><i class="mdi-editor-border-color"></i> Food Menu</a>
-            </li>
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Orders</a>
-                            <div class="collapsible-body">
-                                <ul>
-								<li><a href="all-orders.php">All Orders</a>
-                                </li>
-								<?php
-									$sql = mysqli_query($con, "SELECT DISTINCT status FROM orders;");
-									while($row = mysqli_fetch_array($sql)){
-                                    echo '<li><a href="all-orders.php?status='.$row['status'].'">'.$row['status'].'</a>
-                                    </li>';
-									}
-									?>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-                 <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-question-answer"></i> Tickets</a>
-                            <div class="collapsible-body">
-                                <ul>
-								<li><a href="all-tickets.php">All Tickets</a>
-                                </li>
-								<?php
-									$sql = mysqli_query($con, "SELECT DISTINCT status FROM tickets;");
-									while($row = mysqli_fetch_array($sql)){
-                                    echo '<li><a href="all-tickets.php?status='.$row['status'].'">'.$row['status'].'</a>
-                                    </li>';
-									}
-									?>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>			
-            <li class="bold active"><a href="users.php" class="waves-effect waves-cyan"><i class="mdi-social-person"></i> Users</a>
-            </li>			
+          </li>
+          <li class="bold"><a href="index.php" class="waves-effect waves-cyan"><i class="mdi-editor-border-color"></i> Add Item</a></li>
+          <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+              <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Edit Items</a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li><a href="food.php">Food</a></li>
+                    <li><a href="drinks.php">Drinks</a></li>
+                    <li><a href="add_ons.php">Add Ons</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>
+          <li class="no-padding">
+            <ul class="collapsible collapsible-accordion">
+              <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-action-question-answer"></i> Reports</a>
+                <div class="collapsible-body">
+                  <ul>
+								<!--<li><a href="all-tickets.php">All Tickets</a></li>-->
+                    <?php
+                      $sql = mysqli_query($con, "SELECT DISTINCT status FROM tickets;");
+                      while($row = mysqli_fetch_array($sql)){
+                        echo '<li><a href="all-tickets.php?status='.$row['status'].'">'.$row['status'].'</a></li>';
+                      }
+                    ?>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </li>			
+          <li class="bold active"><a href="users.php" class="waves-effect waves-cyan"><i class="mdi-social-person"></i> Users</a></li>				
         </ul>
         <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
-        </aside>
+      </aside>
       <!-- END LEFT SIDEBAR NAV-->
 
       <!-- //////////////////////////////////////////////////////////////////////////// -->
@@ -197,7 +186,7 @@ include 'includes/connect.php';
 
         <!--start container-->
         <div class="container">
-          <p class="caption">Enable, Disable or Verify Users.</p>
+          <p class="caption">Enable, Disable or Add Users.</p>
           <div class="divider"></div>
           <!--editableTable-->
           <div id="editableTable" class="section">
@@ -211,12 +200,9 @@ include 'includes/connect.php';
                     <thead>
                       <tr>
                         <th data-field="name">Name</th>
-                        <th data-field="price">Email</th>
                         <th data-field="price">Contact</th>
-                        <th data-field="price">Address</th>	
                         <th data-field="price">Role</th>
-                        <th data-field="price">Verified</th>
-                        <th data-field="price">Enable</th>
+                        <th data-field="price">Status</th>
                         <th data-field="price">Wallet</th>						
                       </tr>
                     </thead>
@@ -227,17 +213,11 @@ include 'includes/connect.php';
 				while($row = mysqli_fetch_array($result))
 				{
 					echo '<tr><td>'.$row["name"].'</td>';
-					echo '<td>'.$row["email"].'</td>';
-					echo '<td>'.$row["contact"].'</td>';   
-					echo '<td>'.$row["address"].'</td>';      					
+					echo '<td>'.$row["contact"].'</td>';   					
 					echo '<td><select name="'.$row['id'].'_role">
                       <option value="Administrator"'.($row['role']=='Administrator' ? 'selected' : '').'>Administrator</option>
-                      <option value="Customer"'.($row['role']=='Customer' ? 'selected' : '').'>Customer</option>
+                      <option value="Staff"'.($row['role']=='Staff' ? 'selected' : '').'>Staff</option>
                     </select></td>';
-					echo '<td><select name="'.$row['id'].'_verified">
-                      <option value="1"'.($row['verified'] ? 'selected' : '').'>Verified</option>
-                      <option value="0"'.(!$row['verified'] ? 'selected' : '').'>Not Verified</option>
-                    </select></td>';	
 					echo '<td><select name="'.$row['id'].'_deleted">
                       <option value="1"'.($row['deleted'] ? 'selected' : '').'>Disable</option>
                       <option value="0"'.(!$row['deleted'] ? 'selected' : '').'>Enable</option>
@@ -276,12 +256,9 @@ include 'includes/connect.php';
                         <th data-field="name">Username</th>
                         <th data-field="name">Password</th>							
                         <th data-field="name">Name</th>
-                        <th data-field="price">Email</th>
                         <th data-field="price">Phone number</th>
-                        <th data-field="price">Address</th>	
                         <th data-field="price">Role</th>
-                        <th data-field="price">Verified</th>
-                        <th data-field="price">Enable</th>		
+                        <th data-field="price">Status</th>		
                       </tr>
                     </thead>
 
@@ -290,16 +267,10 @@ include 'includes/connect.php';
 					echo '<tr><td><label for="username">Username</label><input id="username" name="username" type="text" data-error=".errorTxt02"><div class="errorTxt02"></div></td>';   									
 					echo '<td><label for="password">Password</label><input id="password" name="password" type="password" data-error=".errorTxt03"><div class="errorTxt03"></div></td>';   									
 					echo '<td><label for="name">Name</label><input id="name" name="name" type="text" data-error=".errorTxt04"><div class="errorTxt04"></div></td>';
-					echo '<td><label for="email">Email</label><input id="email" name="email" type="email"></td>';
 					echo '<td><label for="contact">Phone number</label><input id="contact" name="contact" type="number" data-error=".errorTxt05"><div class="errorTxt05"></div></td>';   
-					echo '<td><label for="address">Address</label><input id="address" name="address" type="text" data-error=".errorTxt06"><div class="errorTxt06"></div></td>';   
 					echo '<td><select name="role">
                       <option value="Administrator">Administrator</option>
-                      <option value="Customer" selected>Customer</option>
-                    </select></td>';
-					echo '<td><select name="verified">
-                      <option value="1">Verified</option>
-                      <option value="0" selected>Not Verified</option>
+                      <option value="Staff" selected>Staff</option>
                     </select></td>';	
 					echo '<td><select name="deleted">
                       <option value="1">Disable</option>
@@ -386,10 +357,7 @@ include 'includes/connect.php';
             contact: {
                 required: true,
                 minlength: 4,
-			},
-            address: {
-                minlength: 10,
-			},		
+			},	
             balance: {
                 required: true,
 			},				
@@ -410,9 +378,6 @@ include 'includes/connect.php';
            contact:{
                 required: "Please provide card number",
                 minlength: "Enter at least 4 digits",
-            },	
-           address:{
-                minlength: "Address must be atleast 10 characters long",		
             },		
            balance:{
                 required: "Please provide a balance.",		
