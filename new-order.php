@@ -141,8 +141,19 @@ $total = 0;
                 </div>
             </div>
             </li>
-            <li class="bold active"><a href="new-order.php" class="waves-effect waves-cyan"><i class="mdi-editor-border-color"></i> New Order</a>
-            </li>
+            <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-border-color"></i> New Order</a>
+                            <div class="collapsible-body">
+                                <ul>
+								<li><a href="index.php">Foods</a></li>
+                                <li><a href="view-today.php">Drinks</a></li>
+                                <li><a href="view-today.php">Add Ons</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>	
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
                         <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Orders</a>
@@ -163,145 +174,150 @@ $total = 0;
       <!-- //////////////////////////////////////////////////////////////////////////// -->
 
       <!-- START CONTENT -->
+
       <section id="content">
 
-        <!--breadcrumbs start-->
-        <div id="breadcrumbs-wrapper">
-          <div class="container">
-            <div class="row">
-              <div class="col s12 m12 l12">
-                <h5 class="breadcrumbs-title">New Order</h5>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!--breadcrumbs end-->
 
 
-        <!--start container-->
-        <div class="container">
-		  <form class="formValidate" id="formValidate" method="post" action="confirm-order.php" novalidate="novalidate">
-            <div class="row">
-              <div class="col s12 m4 l3">
-                <!--<h4 class="header">Order Food</h4> -->
-              </div>
-              <div>
-                  <table id="data-table-customer" class="responsive-table display" cellspacing="0">
-                    <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Item Price/Piece</th>
-                        <th>Quantity</th>
-                      </tr>
-                    </thead>
+<!--breadcrumbs start-->
 
-                    <tbody>
-				<?php
-				$result = mysqli_query($con, "SELECT * FROM items where not deleted;");
-				while($row = mysqli_fetch_array($result))
-				{
-					echo '<tr><td>'.$row["name"].'</td><td>'.$row["price"].'</td>';                      
-					echo '<td><div class="input-field col s12"><label for='.$row["id"].' class="">Quantity</label>';
-					echo '<input id="'.$row["id"].'" name="'.$row['id'].'" type="text" data-error=".errorTxt'.$row["id"].'"><div class="errorTxt'.$row["id"].'"></div></td></tr>';
-				}
-				?>
-                    </tbody>
-</table>
-              </div>
-			  <div class="container">
-          <p class="caption">Estimated Receipt</p>
-          <div class="divider"></div>
-          <!--editableTable-->
-<div id="work-collections" class="seaction">
-<div class="row">
-<div>
-<ul id="issues-collection" class="collection">
-<?php
-    echo '<li class="collection-item avatar">
-        <i class="mdi-content-content-paste red circle"></i>
-        <p><strong>Name:</strong>'.$name.'</p>
-		<p><strong>Contact Number:</strong> '.$contact.'</p>
-        <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>';
-		
-	foreach ($_POST as $key => $value)
-	{
-		if($value == ''){
-			break;
-		}
-		if(is_numeric($key)){
-		$result = mysqli_query($con, "SELECT * FROM items WHERE id = $key");
-		while($row = mysqli_fetch_array($result))
-		{
-			$price = $row['price'];
-			$item_name = $row['name'];
-			$item_id = $row['id'];
-		}
-			$price = $value*$price;
-			    echo '<li class="collection-item">
-        <div class="row">
-            <div class="col s7">
-                <p class="collections-title"><strong>#'.$item_id.' </strong>'.$item_name.'</p>
-            </div>
-            <div class="col s2">
-                <span>'.$value.' Pieces</span>
-            </div>
-            <div class="col s3">
-                <span>P '.$price.'.00</span>
-            </div>
-        </div>
-    </li>';
-		$total = $total + $price;
-	}
-	}
-    echo '<li class="collection-item">
-        <div class="row">
-            <div class="col s7">
-                <p class="collections-title"> Total</p>
-            </div>
-            <div class="col s2">
-                <span>&nbsp;</span>
-            </div>
-            <div class="col s3">
-                <span><strong>P '.$total.'.00</strong></span>
-            </div>
-        </div>
-    </li>';
-		if(!empty($_POST['description']))
-		echo '<li class="collection-item avatar"><p><strong>Note: </strong>'.htmlspecialchars($_POST['description']).'</p></li>';
-?>
-</ul>
+<div id="breadcrumbs-wrapper">
 
+  <div class="container">
 
-                </div>
-				</div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!--end container-->
+    <div class="row">
 
-            <?php
-					  	foreach ($_POST as $key => $value)
-						{
-							if($key == 'action' || $value == ''){
-								break;
-							}
-							echo '<input name="'.$key.'" type="hidden" value="'.$value.'">';
-						}
-					  ?>
-			</form>
-            <div class="divider"></div>
-            
-          </div>
-        </div>
-        <!--end container-->
+      <div class="col s12 m12 l12">
 
-      </section>
-      <!-- END CONTENT -->
+        <h5 class="breadcrumbs-title">Order</h5>
 
+      </div>
+
+    </div>
 
   </div>
-  <!-- END MAIN -->
+
+</div>
+
+<!--breadcrumbs end-->
+
+
+
+
+
+<!--start container-->
+
+<div class="container">
+
+  <p class="caption">Order your food here.</p>
+
+  <div class="divider"></div>
+
+  <form class="formValidate" id="formValidate" method="post" action="place-order.php" novalidate="novalidate">
+
+    <div class="row">
+
+      <div class="col s12 m4 l3">
+
+        <h4 class="header">Order Food</h4>
+
+      </div>
+
+      <div>
+
+          <table id="data-table-customer" class="responsive-table display" cellspacing="0">
+
+            <thead>
+
+              <tr>
+
+                <th>Name</th>
+
+                <th>Item Price/Piece</th>
+
+                <th>Quantity</th>
+
+              </tr>
+
+            </thead>
+
+
+
+            <tbody>
+
+        <?php
+
+        $result = mysqli_query($con, "SELECT * FROM items where not deleted;");
+
+        while($row = mysqli_fetch_array($result))
+
+        {
+
+            echo '<tr><td>'.$row["name"].'</td><td>'.$row["price"].'</td>';                      
+
+            echo '<td><div class="input-field col s12"><label for='.$row["id"].' class="">Quantity</label>';
+
+            echo '<input id="'.$row["id"].'" name="'.$row['id'].'" type="text" data-error=".errorTxt'.$row["id"].'"><div class="errorTxt'.$row["id"].'"></div></td></tr>';
+
+        }
+
+        ?>
+
+            </tbody>
+
+</table>
+
+      </div>
+
+      <div class="input-field col s12">
+
+      <i class="mdi-editor-mode-edit prefix"></i>
+
+      <textarea id="description" name="description" class="materialize-textarea"></textarea>
+
+      <label for="description" class="">Any note(optional)</label>
+
+      </div>
+
+      <div>
+
+      <div class="input-field col s12">
+
+                      <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Order
+
+                        <i class="mdi-content-send right"></i>
+
+                      </button>
+
+                    </div>
+
+    </div>
+
+    </form>
+
+    <div class="divider"></div>
+
+    
+
+  </div>
+
+</div>
+
+<!--end container-->
+
+
+
+</section>
+
+<!-- END CONTENT -->
+
+
+
+
+
+</div>
+
+<!-- END MAIN -->
 
 
 

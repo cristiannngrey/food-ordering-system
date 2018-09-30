@@ -367,9 +367,9 @@ $total = 0;
 	}
 	else
 	{
-		if($_SESSION['staff_sid']==session_id())
+		if($_SESSION['admin_sid']==session_id())
 		{
-			header("location:index.php");		
+			header("location:admin-page.php");		
 		}
 		else{
 			header("location:login.php");

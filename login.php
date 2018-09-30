@@ -75,11 +75,11 @@ else{
         <div class="row">
 			<a href="javascript:void(0);" onclick="document.getElementById('form').submit();" class="btn waves-effect waves-light col s12">Login</a>
           </div>
-		  		<div class="row">
+		  		<!--<div class="row">
           <div class="input-field col s6 m6 l6">
             <p class="margin medium-small"><a href="register.php">Register Now!</a></p>
           </div>         
-        </div>
+        </div> -->
         </div>
 
 

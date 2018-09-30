@@ -3,7 +3,7 @@ include 'includes/connect.php';
 include 'includes/wallet.php';
 $continue=0;
 $total = 0;
-if($_SESSION['customer_sid']==session_id())
+if($_SESSION['staff_sid']==session_id())
 {
 		/*if($_POST['payment_type'] == 'Wallet'){
 		$_POST['cc_number'] = str_replace('-', '', $_POST['cc_number']);
@@ -246,7 +246,7 @@ if($continue){
     </li>';
 	if(!empty($_POST['description']))
 		echo '<li class="collection-item avatar"><p><strong>Note: </strong>'.htmlspecialchars($_POST['description']).'</p></li>';
-	if($_POST['payment_type'] == 'Wallet')
+	//if($_POST['payment_type'] == 'Wallet')
 	echo '<div id="basic-collections" class="section">
 		<div class="row">
 			<div class="collection">
@@ -272,7 +272,7 @@ foreach ($_POST as $key => $value)
 <input type="hidden" name="payment_type" value="<?php echo $_POST['payment_type'];?>">
 <input type="hidden" name="address" value="<?php echo htmlspecialchars($_POST['address']);?>">
 <?php if (isset($_POST['description'])) { echo'<input type="hidden" name="description" value="'.htmlspecialchars($_POST['description']).'">';}?>
-<?php if($_POST['payment_type'] == 'Wallet') echo '<input type="hidden" name="balance" value="<?php echo ($balance-$total);?>">'; ?>
+<?php //if($_POST['payment_type'] == 'Wallet') echo '<input type="hidden" name="balance" value="<?php echo ($balance-$total);?>">'; ?>
 <input type="hidden" name="total" value="<?php echo $total;?>">
 <div class="input-field col s12">
 <button class="btn cyan waves-effect waves-light right" type="submit" name="action" <?php if($_POST['payment_type'] == 'Wallet') {if ($balance-$total < 0) {echo 'disabled'; }}?>>Confirm Order
