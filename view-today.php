@@ -148,7 +148,7 @@ $total = 0;
                         <li class="bold"><a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-insert-invitation"></i> Orders</a>
                             <div class="collapsible-body">
                                 <ul>
-								<li><a href="index.php">All Orders</a></li>
+								<li><a href="index.php">Pending Orders</a></li>
                                 <li class = "active"><a href="view-today.php">Delivered Orders</a></li>
                                 </ul>
                             </div>

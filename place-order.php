@@ -1,14 +1,14 @@
 <?php
-include 'includes/connect.php';
-include 'includes/wallet.php';
-$total = 0;
-	if($_SESSION['staff_sid']==session_id())
-	{
-$result = mysqli_query($con, "SELECT * FROM users where id = $user_id");
-while($row = mysqli_fetch_array($result)){
-$name = $row['name'];
-}
-		?>
+    include 'includes/connect.php';
+    include 'includes/wallet.php';
+    $total = 0;
+        if($_SESSION['staff_sid']==session_id())
+        {
+            $result = mysqli_query($con, "SELECT * FROM users where id = $user_id");
+            while($row = mysqli_fetch_array($result)){
+            $name = $row['name'];
+        }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -121,49 +121,54 @@ $name = $row['name'];
 
       <!-- START LEFT SIDEBAR NAV-->
       <aside id="left-sidebar-nav">
-        <ul id="slide-out" class="side-nav fixed leftside-navigation">
-            <li class="user-details cyan darken-2">
-            <div class="row">
-                <div class="col col s4 m4 l4">
-                    <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
-                </div>
-				<div class="col col s8 m8 l8">
-                    <ul id="profile-dropdown" class="dropdown-content">
-                        <li><a href="routers/logout.php"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col col s8 m8 l8">
-                    <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><?php echo $name;?> <i class="mdi-navigation-arrow-drop-down right"></i></a>
-                    <p class="user-roal"><?php echo $role;?></p>
-                </div>
-            </div>
-            </li>
-            <li class="bold"><a href="index.php" class="waves-effect waves-cyan"><i class="mdi-editor-border-color"></i> Order Food</a>
-            </li>
+            <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                <li class="user-details cyan darken-2">
+                    <div class="row">
+                        <div class="col col s4 m4 l4">
+                            <img src="images/avatar.jpg" alt="" class="circle responsive-img valign profile-image">
+                        </div>
+                        <div class="col col s8 m8 l8">
+                            <ul id="profile-dropdown" class="dropdown-content">
+                                <li><a href="routers/logout.php"><i class="mdi-hardware-keyboard-tab"></i> Logout</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col col s8 m8 l8">
+                            <a class="btn-flat dropdown-button waves-effect waves-light white-text profile-btn" href="#" data-activates="profile-dropdown"><?php echo $name;?> <i class="mdi-navigation-arrow-drop-down right"></i></a>
+                            <p class="user-roal"><?php echo $role;?></p>
+                        </div>
+                    </div>
+                </li>
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
-                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Orders</a>
+                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-border-color"></i> New Order</a>
                             <div class="collapsible-body">
                                 <ul>
-								<li><a href="orders.php">All Orders</a>
-                                </li>
-								<?php
-									$sql = mysqli_query($con, "SELECT DISTINCT status FROM orders WHERE customer_id = $user_id;");
-									while($row = mysqli_fetch_array($sql)){
-                                    echo '<li><a href="orders.php?status='.$row['status'].'">'.$row['status'].'</a>
-                                    </li>';
-									}
-									?>
+                                    <li><a href="index.php">Foods</a></li>
+                                    <li><a href="view-today.php">Drinks</a></li>
+                                    <li><a href="view-today.php">Add Ons</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                </li>			
-        </ul>
-        <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
+                </li>	
+            <!--    <li class="no-padding">
+                    <ul class="collapsible collapsible-accordion">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Orders</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="index.php">All Orders</a></li>
+                                    <li><a href="view-today.php">Delivered Orders</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>			-->
+            </ul>
+            <a href="#" data-activates="slide-out" class="sidebar-collapse btn-floating btn-medium waves-effect waves-light hide-on-large-only cyan"><i class="mdi-navigation-menu"></i></a>
         </aside>
       <!-- END LEFT SIDEBAR NAV-->
+
 
       <!-- //////////////////////////////////////////////////////////////////////////// -->
 
@@ -175,29 +180,93 @@ $name = $row['name'];
           <div class="container">
             <div class="row">
               <div class="col s12 m12 l12">
-                <h5 class="breadcrumbs-title">Provide Order Details</h5>
+                <h5 class="breadcrumbs-title">Order Details</h5>
               </div>
             </div>
           </div>
         </div>
         <!--breadcrumbs end-->
 
-
-        <!--start container-->
-				<div class="container">
-          <p class="caption">Provide required delivery and payment details.</p>
+        <!-- Start container -->
+        <div class="container">
+          <p class="caption">Estimated Receipt</p>
           <div class="divider"></div>
+          
+          <!--editableTable-->
+            <div id="work-collections" class="seaction">
             <div class="row">
-              <div class="col s12 m4 l3">
-                <h4 class="header">Order Details</h4>
+            <div>
+            <ul id="issues-collection" class="collection">
+            <?php
+                echo '<li class="collection-item avatar">
+                    <i class="mdi-content-content-paste red circle"></i>
+                    <p><strong>Name:</strong>'.$name.'</p>
+                    <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>';
+                    
+                foreach ($_POST as $key => $value)
+                {
+                    if($value == ''){
+                        break;
+                    }
+                    if(is_numeric($key)){
+                    $result = mysqli_query($con, "SELECT * FROM items WHERE id = $key");
+                    while($row = mysqli_fetch_array($result))
+                    {
+                        $price = $row['price'];
+                        $item_name = $row['name'];
+                        $item_id = $row['id'];
+                    }
+                        $price = $value*$price;
+                            echo '<li class="collection-item">
+                    <div class="row">
+                        <div class="col s7">
+                            <p class="collections-title"><strong>#'.$item_id.' </strong>'.$item_name.'</p>
+                        </div>
+                        <div class="col s2">
+                            <span>'.$value.' Pieces</span>
+                        </div>
+                        <div class="col s3">
+                            <span>Rs. '.$price.'</span>
+                        </div>
+                    </div>
+                </li>';
+                    $total = $total + $price;
+                }
+                }
+                echo '<li class="collection-item">
+                    <div class="row">
+                        <div class="col s7">
+                            <p class="collections-title"> Total</p>
+                        </div>
+                        <div class="col s2">
+                            <span>&nbsp;</span>
+                        </div>
+                        <div class="col s3">
+                            <span><strong>Rs. '.$total.'</strong></span>
+                        </div>
+                    </div>
+                </li>';
+                    if(!empty($_POST['description']))
+                    echo '<li class="collection-item avatar"><p><strong>Note: </strong>'.htmlspecialchars($_POST['description']).'</p></li>';
+            ?>
+            </ul>
+
+
+                </div>
+				</div>
+                </div>
               </div>
-<div>
-                <div class="card-panel">
+            </div>
+        </div>
+
+        <!--end new container-->
+
+        <div class="card-panel">
                   <div class="row">
                     <form class="formValidate col s12 m12 l6" id="formValidate" method="post" action="confirm-order.php" novalidate="novalidate">
-                      <div class="row">
+                      <!--<div class="row">
                         <div class="input-field col s12">
-							<!--<label for="payment_type">Payment Type</label><br><br>
+							<label for="payment_type">Payment Type</label><br><br>
 							<select id="payment_type" name="payment_type">
 									<option value="Wallet" selected>Wallet</option> -->
 								<!--	<option value="Cash On Delivery" <?php // if(!$verified) echo 'disabled';?>>Cash on Delivery</option>							
@@ -247,84 +316,6 @@ $name = $row['name'];
                     </form>
                   </div>
                 </div>
-              </div>
-            <div class="divider"></div>
-            
-          </div>
-        <!--end container-->
-
-      </div>
-	  
-        <div class="container">
-          <p class="caption">Estimated Receipt</p>
-          <div class="divider"></div>
-          <!--editableTable-->
-<div id="work-collections" class="seaction">
-<div class="row">
-<div>
-<ul id="issues-collection" class="collection">
-<?php
-    echo '<li class="collection-item avatar">
-        <i class="mdi-content-content-paste red circle"></i>
-        <p><strong>Name:</strong>'.$name.'</p>
-        <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>';
-		
-	foreach ($_POST as $key => $value)
-	{
-		if($value == ''){
-			break;
-		}
-		if(is_numeric($key)){
-		$result = mysqli_query($con, "SELECT * FROM items WHERE id = $key");
-		while($row = mysqli_fetch_array($result))
-		{
-			$price = $row['price'];
-			$item_name = $row['name'];
-			$item_id = $row['id'];
-		}
-			$price = $value*$price;
-			    echo '<li class="collection-item">
-        <div class="row">
-            <div class="col s7">
-                <p class="collections-title"><strong>#'.$item_id.' </strong>'.$item_name.'</p>
-            </div>
-            <div class="col s2">
-                <span>'.$value.' Pieces</span>
-            </div>
-            <div class="col s3">
-                <span>Rs. '.$price.'</span>
-            </div>
-        </div>
-    </li>';
-		$total = $total + $price;
-	}
-	}
-    echo '<li class="collection-item">
-        <div class="row">
-            <div class="col s7">
-                <p class="collections-title"> Total</p>
-            </div>
-            <div class="col s2">
-                <span>&nbsp;</span>
-            </div>
-            <div class="col s3">
-                <span><strong>Rs. '.$total.'</strong></span>
-            </div>
-        </div>
-    </li>';
-		if(!empty($_POST['description']))
-		echo '<li class="collection-item avatar"><p><strong>Note: </strong>'.htmlspecialchars($_POST['description']).'</p></li>';
-?>
-</ul>
-
-
-                </div>
-				</div>
-                </div>
-              </div>
-            </div>
-        </div>
-        <!--end container-->
 
       </section>
       <!-- END CONTENT -->
