@@ -191,64 +191,65 @@
         <div class="container">
           <p class="caption">Estimated Receipt</p>
           <div class="divider"></div>
-          
+
           <!--editableTable-->
             <div id="work-collections" class="seaction">
-            <div class="row">
-            <div>
-            <ul id="issues-collection" class="collection">
-            <?php
-                echo '<li class="collection-item avatar">
-                    <i class="mdi-content-content-paste red circle"></i>
-                    <p><strong>Name:</strong>'.$name.'</p>
-                    <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>';
-                    
-                foreach ($_POST as $key => $value)
-                {
-                    if($value == ''){
-                        break;
-                    }
-                    if(is_numeric($key)){
-                    $result = mysqli_query($con, "SELECT * FROM items WHERE id = $key");
-                    while($row = mysqli_fetch_array($result))
-                    {
-                        $price = $row['price'];
-                        $item_name = $row['name'];
-                        $item_id = $row['id'];
-                    }
-                        $price = $value*$price;
-                            echo '<li class="collection-item">
-                    <div class="row">
-                        <div class="col s7">
-                            <p class="collections-title"><strong>#'.$item_id.' </strong>'.$item_name.'</p>
-                        </div>
-                        <div class="col s2">
-                            <span>'.$value.' Pieces</span>
-                        </div>
-                        <div class="col s3">
-                            <span>Rs. '.$price.'</span>
-                        </div>
-                    </div>
-                </li>';
-                    $total = $total + $price;
-                }
-                }
-                echo '<li class="collection-item">
-                    <div class="row">
-                        <div class="col s7">
-                            <p class="collections-title"> Total</p>
-                        </div>
-                        <div class="col s2">
-                            <span>&nbsp;</span>
-                        </div>
-                        <div class="col s3">
-                            <span><strong>Rs. '.$total.'</strong></span>
-                        </div>
-                    </div>
-                </li>';
-                    if(!empty($_POST['description']))
-                    echo '<li class="collection-item avatar"><p><strong>Note: </strong>'.htmlspecialchars($_POST['description']).'</p></li>';
-            ?>
+                <div class="row">
+                    <div>
+                        <ul id="issues-collection" class="collection">
+                            <?php
+                                echo '<li class="collection-item avatar">
+                                    <i class="mdi-content-content-paste red circle"></i>
+                                    <p><strong>Name:</strong>'.$name.'</p>
+                                    <a href="#" class="secondary-content"><i class="mdi-action-grade"></i></a>
+                                ';
+                                    
+                                foreach ($_POST as $key => $value)
+                                {
+                                    if($value == ''){
+                                        break;
+                                    }
+                                    if(is_numeric($key)){
+                                    $result = mysqli_query($con, "SELECT * FROM items WHERE id = $key");
+                                    while($row = mysqli_fetch_array($result))
+                                    {
+                                        $price = $row['price'];
+                                        $item_name = $row['name'];
+                                        $item_id = $row['id'];
+                                    }
+                                        $price = $value*$price;
+                                            echo '<li class="collection-item">
+                                    <div class="row">
+                                        <div class="col s7">
+                                            <p class="collections-title"><strong>#'.$item_id.' </strong>'.$item_name.'</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <span>'.$value.' Pieces</span>
+                                        </div>
+                                        <div class="col s3">
+                                            <span>Rs. '.$price.'</span>
+                                        </div>
+                                    </div>
+                                </li>';
+                                    $total = $total + $price;
+                                }
+                                }
+                                echo '<li class="collection-item">
+                                    <div class="row">
+                                        <div class="col s7">
+                                            <p class="collections-title"> Total</p>
+                                        </div>
+                                        <div class="col s2">
+                                            <span>&nbsp;</span>
+                                        </div>
+                                        <div class="col s3">
+                                            <span><strong>Rs. '.$total.'</strong></span>
+                                        </div>
+                                    </div>
+                                </li>';
+                                    if(!empty($_POST['description']))
+                                    echo '<li class="collection-item avatar"><p><strong>Note: </strong>'.htmlspecialchars($_POST['description']).'</p></li>';
+                            ?>
             </ul>
 
 

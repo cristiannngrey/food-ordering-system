@@ -2,7 +2,6 @@
 include 'includes/connect.php';
 include 'includes/wallet.php';
 $total = 0;
-$new_order_num = $order_num + 1;
 	if($_SESSION['staff_sid']==session_id())
 	{
 		$result = mysqli_query($con, "SELECT * FROM users where id = $user_id");
@@ -19,7 +18,7 @@ $new_order_num = $order_num + 1;
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="msapplication-tap-highlight" content="no">
-  <title>Order Food</title>
+  <title>Drinks</title>
 
   <!-- Favicons-->
   <link rel="icon" href="images/favicon/favicon-32x32.png" sizes="32x32">
@@ -144,17 +143,17 @@ $new_order_num = $order_num + 1;
                 </li>
                 <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
-                        <li class="bold active"><a href = "new-order.php" class="waves-effect waves-cyan"><i class="mdi-editor-border-color"></i> New Order</a>
-                        <!--    <div class="collapsible-body">
+                        <li class="bold"><a class="collapsible-header waves-effect waves-cyan active"><i class="mdi-editor-border-color"></i> New Order</a>
+                            <div class="collapsible-body">
                                 <ul>
-                                    <li><a href="index.php">Foods</a></li>
-                                    <li><a href="view-today.php">Drinks</a></li>
-                                    <li><a href="view-today.php">Add Ons</a></li>
+                                    <li><a href="order-food.php">Foods</a></li>
+                                    <li class = "active" ><a href="order-drinks.php">Drinks</a></li>
+                                    <li><a href="order-addons.php">Add Ons</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
-                </li>	-->
+                </li>	
            <!--     <li class="no-padding">
                     <ul class="collapsible collapsible-accordion">
                         <li class="bold"><a class="collapsible-header waves-effect waves-cyan"><i class="mdi-editor-insert-invitation"></i> Orders</a>
@@ -177,34 +176,66 @@ $new_order_num = $order_num + 1;
       <!-- START CONTENT -->
 
         <section id="content">
-            <!--breadcrumbs start-->
+            <!--breadcrumbs start--> <!--
             <div id="breadcrumbs-wrapper">
                 <div class="container">
                     <div class="row">
                         <div class="col s12 m12 l12">
-                            <h5 class="breadcrumbs-title">Create New Order</h5>
+                            <h5 class="breadcrumbs-title">Food Menu</h5>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!--breadcrumbs end-->
 
 
             <!--start container-->
 
             <div class="container">
+                <!-- <p class="caption">Order your food here.</p> -->
                 <div class="divider"></div>
-                    <form class="formValidate" id="formValidate" method="post" action="routers/create-order.php" novalidate="novalidate">
+                    <form class="formValidate" id="formValidate" method="post" action="place-order.php" novalidate="novalidate">
                         <div class="row">
+                            <div class="col s12 m4 l3">
+                                <h4 class="header">Order Drinks</h4>
+                                <?php
+                                    echo 'Order No: '.$order_num;
+                                ?>
+                            </div>
+                            <div>
+                                <table id="data-table-customer" class="responsive-table display" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th>Item Price/Piece</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        $result = mysqli_query($con, "SELECT * FROM items where category = 'drinks';");
+                                        while($row = mysqli_fetch_array($result))
+                                        {
+                                            echo '<tr><td>'.$row["name"].'</td>';
+                                            echo '<td>'.$row["price"].'</td>';                      
+                                            echo '<td><div class="input-field col s12"><label for='.$row["id"].' class="">Quantity</label>';
+                                            echo '<input id="'.$row["id"].'" name="'.$row['id'].'" type="text" data-error=".errorTxt'.$row["id"].'"><div class="errorTxt'.$row["id"].'"></div></td></tr>';
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                             <div class="input-field col s12">
-                                <?php 
-                                    echo 'Order No: '.$new_order_num; echo '<br/>';
-                                    echo 'Recieved by: '.$name; echo '<br/>';
-                                    echo 'Time Received: '. date("h:i:s a");
-                                    ?>
-                                <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Create New Order
-                                    <i class="mdi-content-send right"></i>
-                                </button>
+                                <i class="mdi-editor-mode-edit prefix"></i>
+                                <textarea id="description" name="description" class="materialize-textarea"></textarea>
+                                <label for="description" class="">Any note(optional)</label>
+                            </div>
+                            <div>
+                                <div class="input-field col s12">
+                                    <button class="btn cyan waves-effect waves-light right" type="submit" name="action">Add
+                                        <i class="mdi-content-send right"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -312,4 +343,4 @@ $new_order_num = $order_num + 1;
 			header("location:login.php");
 		}
 	}
-?>
+?>  
