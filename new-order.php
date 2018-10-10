@@ -183,6 +183,7 @@ $new_order_num = $order_num + 1;
                     <div class="row">
                         <div class="col s12 m12 l12">
                             <h5 class="breadcrumbs-title">Create New Order</h5>
+                            <b>Order Details</b>
                         </div>
                     </div>
                 </div>
@@ -222,7 +223,7 @@ $new_order_num = $order_num + 1;
 
   <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-  <!-- START FOOTER -->
+  <!-- START FOOTER
   <footer class="page-footer">
     <div class="footer-copyright">
         <div class="container">
@@ -230,7 +231,7 @@ $new_order_num = $order_num + 1;
             <span class="right"> Design and Developed by <a class="grey-text text-lighten-4" href="#">Students</a></span>
         </div>
     </div>
-  </footer>
+  </footer> -->
     <!-- END FOOTER -->
 
 

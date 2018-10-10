@@ -202,6 +202,8 @@ $total = 0;
                                 <?php
                                     echo 'Order No: '.$order_num;
                                 ?>
+                                <br/><a href = checkout.php><img align = "left" height = "40px" width = "50%" src = "images/checkout.png"></a>
+                            </div>
                             </div>
                             <div>
                                 <table id="data-table-customer" class="responsive-table display" cellspacing="0">
@@ -254,7 +256,7 @@ $total = 0;
 
   <!-- //////////////////////////////////////////////////////////////////////////// -->
 
-  <!-- START FOOTER -->
+  <!-- START FOOTER
   <footer class="page-footer">
     <div class="footer-copyright">
         <div class="container">
@@ -263,6 +265,7 @@ $total = 0;
         </div>
     </div>
   </footer>
+  -->
     <!-- END FOOTER -->
 
 

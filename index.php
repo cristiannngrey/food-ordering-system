@@ -191,7 +191,7 @@ $total = 0;
 				else{
                     $status = '%';
 				}
-				$sql = mysqli_query($con, "SELECT * FROM orders WHERE not deleted");
+				$sql = mysqli_query($con, "SELECT * FROM orders WHERE total > 0 AND not deleted");
 				echo '<div class="row">
                         <h4 class="header">List</h4>
                         <ul id="issues-collection" class="collection">';
